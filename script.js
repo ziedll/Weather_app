@@ -16,6 +16,7 @@ async function fetchDatawithHeader(){
 }*/
 let cityInput = document.getElementById("city");
 let searchBtn = document.getElementById("search");
+let locationBtn = document.getElementById("location")
 let API_key = "2548d3426398a0d799d768b43669be0a";
 let currentWeatherCard = document.querySelectorAll(".weather-left .card")[0];
 let fiveDaysForecastCard = document.querySelector(".future-weather");
@@ -27,6 +28,7 @@ let pressureVal = document.getElementById('pressureVal');
 let visibilityVal = document.getElementById('visibilityVal');
 let windSpeedVal = document.getElementById('windSpeedVal');
 let feelsLikeVal = document.getElementById('feelsLikeVal');
+let hourlyForecastCard = document.querySelector('.hourly-forecast');
 function getWeatherDetails(name, lat, lon, country, state) {
     let FORECAST_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_key}`;
     let WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_key}`;
@@ -68,7 +70,7 @@ function getWeatherDetails(name, lat, lon, country, state) {
             <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="cloud"> 
             <hr>
             <div class="card-footer">
-                <p><i class = "fa-light fa-calendar"></i>${days[date.getDay()]}, ${date.getDate()}, ${months[date.getMonth()]}, ${date.getFullYear()}</p>
+                <p><i class = "fa-solid fa-calendar"></i>${days[date.getDay()]}, ${date.getDate()}, ${months[date.getMonth()]}, ${date.getFullYear()}</p>
                 <p><i class="fa-solid fa-location-dot"></i>${country}</p>
                 <p><i class="fa-solid fa-location-dot"></i>${name}</p>
                 <p><i class="fa-solid fa-location-dot"></i>${state}</p>
@@ -121,6 +123,21 @@ function getWeatherDetails(name, lat, lon, country, state) {
     fetch(FORECAST_API_URL)
         .then((res) => res.json())
         .then((data) => {
+            let hourlyForecast = data.list;
+            hourlyForecastCard.innerHTML = '';
+            for(i=0;i<7;i++){
+                let hrForeCastDate = new Date(hourlyForecast[i].dt_txt);
+                let hr = hrForeCastDate.getHours();
+                if(hr > 24){
+                    hr = 24-hr;
+                }
+                hourlyForecastCard.innerHTML += `
+                 <div class="card">
+                    <p>${hr}:00</p>
+                    <img src="https://openweathermap.org/img/wn/${hourlyForecast[i].weather[0].icon}.png" alt="">
+                    <p>${(hourlyForecast[i].main.temp -273.15).toFixed(2)}&deg;C</p>
+                </div>`
+            }
             let uniqueForeCastDays = [];
             let fiveDaysForecast = data.list.filter((forecast) => {
                 let forecastDate = new Date(forecast.dt_txt).getDate();
@@ -136,10 +153,7 @@ function getWeatherDetails(name, lat, lon, country, state) {
                         <div class="icon-wrapper">
                             <img src="https://openweathermap.org/img/wn/${fiveDaysForecast[i].weather[0].icon}.png" alt="image">
                             <span>${(fiveDaysForecast[i].main.temp - 273.15).toFixed(2)}&deg;C</span>
-                        </div>
-                        <p>${date.getDate()} ${months[date.getMonth()]}</p>
-                        <p>${days[date.getDay()]}</p>
-                    </div>`;
+                        </div>`;
             }
         })
         .catch(() => {
@@ -201,7 +215,7 @@ function getCityCoordinates() {
     if (!cityName) {
         return;
     }
-    let GEOCODING_API_URL = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_key}`;
+    let GEOCODING_API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_key}`;
     fetch(GEOCODING_API_URL)
         .then((res) => res.json())
         .then((data) => {
@@ -212,4 +226,26 @@ function getCityCoordinates() {
             alert(`failed to fetch coordinates of ${cityName}`);
         });
 }
+
+function getUserCoordinates(){
+    navigator.geolocation.getCurrentPosition(position => {
+        let {latitude, longitude} = position.coords;
+        let REVERSE_GEOCODING_URL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${API_key}`;
+        fetch(REVERSE_GEOCODING_URL).then(res => res.json()).then (data =>{
+            let {name, country, state} = data[0];
+            getWeatherDetails(name, latitude, longitude, country, state);
+        }).catch(() => {
+            alert('Failed to fetch user coordinates');
+        }), error => {
+            if(error.code === error.PERMISSION_DENIED){
+                alert("geolocation permission denied");
+            }
+            
+        }
+    });
+}
+window.onload = () =>{
+    getUserCoordinates();
+};
 searchBtn.addEventListener("click", getCityCoordinates);
+locationBtn.addEventListener("click", getUserCoordinates);

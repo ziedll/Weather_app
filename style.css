@@ -1,3 +1,4 @@
+
 :root{
 --bg-color1 : #212529;
 --bg-color2 : #2a2b2d;
@@ -7,6 +8,17 @@
 --aqi-4: #ff7043;
 --aqi-5: #ef5350;
 
+}
+.weather-left{
+    width: 400px;
+}
+.weather-left .future-weather{
+    position: relative;
+    transform: translateX(-100px);
+    font-size: 40px;
+}
+#card h2{
+    font-size: 60px;
 }
 body{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -60,12 +72,13 @@ h1{
     height: fit-content;
 }
 .card p {
-    font-size: 14px;
+    font-size: 30px;
     color: #999;
 }
-.card h2 {
-    font-size: 32px;
+.weather-left .card h2 {
+    font-size: 45px;
     font-weight: 500;
+    text-shadow: 0 0 50px white;
 }
 .weather-data{
     width: 350px;
@@ -169,16 +182,24 @@ a{
 .weather-right .sunrise-sunset{
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    height: 400px;
+    width: 450px;
+    gap: 25px;
+    padding: 0px 20px;
 }
 .weather-right .sunrise-sunset .item{
         display: flex;
         align-items: center;
-        justify-content: space-between;
         gap: 10px;
         
     }
     .weather-right .sunrise-sunset h2{
         margin-top: 15px;
+        font-size: 25px;
+    }
+     .weather-right .sunrise-sunset p{
+        margin-top: 15px;
+        font-size: 25px;
     }
     .weather-right .card-item{
         display: flex;
@@ -206,10 +227,12 @@ a{
         line-height: 1;
     }
     .weather-right .hourly-forecast{
-        display: grid;
+        display: flex;
         grid-template-columns: repeat(8, 1fr);
         place-items: center;
-        column-gap: 20px;
+        justify-content: space-between;
+        gap: 25px;
+
     }
     .weather-right .hourly-forecast .card{
         text-align: center;
@@ -218,3 +241,24 @@ a{
     #hum{
         width: 250px;
     }
+    .card-footer  p {
+        display: flex;
+        justify-content: left;
+        gap: 8px;
+    }
+    header button{
+    font-size:  18px;
+    white-space: nowrap;
+    width: fit-content;
+    }
+    header input{
+        font-size: 18px;
+    }
+    .weather-right .hourly-forecast .card{
+        width: fit-content;
+    }
+    .weather-right h2{
+        font-size: 40px;
+        margin-bottom: 20px;
+    }
+    
