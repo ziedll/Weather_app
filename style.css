@@ -78,10 +78,15 @@ h1{
     margin-bottom: 12px;
 }
 .weather-item{
-    display: grid;
     grid-template-columns: repeat(4, 1fr);
     place-items: center;
     margin-bottom: 10px;
+    gap: 20px;
+      display: flex;
+        justify-content: space-evenly;
+}
+.weather-item p{
+    white-space: nowrap;
 }
 .icon-wrapper{
     display: flex;
@@ -209,4 +214,7 @@ a{
     .weather-right .hourly-forecast .card{
         text-align: center;
         width: 50px;
+    }
+    #hum{
+        width: 250px;
     }
