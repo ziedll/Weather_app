@@ -23,8 +23,12 @@
 body{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin-right: 0px;
-    background-color: rgb(40, 37, 37);
-    color: white;
+    background-image: url(/img/vladimir-anikeev-IM8ZyYaSW6g-unsplash.jpg);
+    background-repeat: no-repeat;
+    background-size: 1920px 1700px;
+    color: black;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 hr{
     margin-bottom: 15px;
@@ -43,29 +47,63 @@ h1{
 }
 #search{
     background-color: white;
+    opacity: 0.5;
+    font-size: 16px;
+    text-align: center;
     border-radius: 20px;
-    width: 80px;
+    width: 70px;
     height: 30px;
+    color: black;
+    position: absolute;
+    transform: translateX(-80px) translateY(5px);
+}
+#search:hover{
+    background: linear-gradient(180deg, #171515 0%, #1588b6 100%);
+    color: white;
+    opacity: 1;
 }
 #city{
-    background-color: rgb(56, 52, 52);
+    background-color: rgb(224, 223, 223, 10);
+    opacity: 0.8;
     border-radius: 20px;
-    border: 1px solid black;
-    padding: 10px 10px;
-    color: white;
+    border: 1px  none;
+    padding: 10px 30px;
+    color: black;
+}
+#city:hover{
+    background: linear-gradient(180deg, #fffcfc 0%, #fffeff 100%);
+    color: black;
 }
 .container{
-    background-color: rgba(255, 83, 20, 0.844);
+    background: linear-gradient(180deg, #d36136 0%, #aa401c 100%);
+    box-shadow: 
+    inset 0 2px 2px rgba(255, 255, 255, 0.3), /* Reflet de lumière en haut */
+    inset 0 -2px 4px rgba(0, 0, 0, 0.25),     /* Ombre interne en bas */
+    0 8px 16px rgba(0, 0, 0, 0.15),           /* Ombre portée douce (drop shadow) */
+    0 4px 6px rgba(0, 0, 0, 0.1);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
     text-decoration: none;
     color: white;
-    border-radius: 20px;
-    width: 150px;
+    border-radius: 16px;
+    width: fit-content;
     padding: 8px 8px;
     text-align: center;
     border: 1px solid black;
 }
+.container i{
+    margin-right: 7px;
+}
+.container:hover{
+    background: linear-gradient(180deg, #df6b40 0%, #b84721 100%);
+}
 .card{
-    background-color: var(--bg-color2);
+background: rgba(255, 247, 247, 0.44);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(3.9px);
+-webkit-backdrop-filter: blur(3.9px);
+border: 1px solid rgba(255, 255, 255, 0.37);
+opacity: 0.85;
     padding: 15px;
     border-radius: 15px;
     margin-bottom: 15px;
@@ -73,7 +111,7 @@ h1{
 }
 .card p {
     font-size: 30px;
-    color: #999;
+    color: #141313;
 }
 .weather-left .card h2 {
     font-size: 45px;
@@ -95,8 +133,8 @@ h1{
     place-items: center;
     margin-bottom: 10px;
     gap: 20px;
-      display: flex;
-        justify-content: space-evenly;
+    display: flex;
+    justify-content: space-evenly;
 }
 .weather-item p{
     white-space: nowrap;
@@ -181,10 +219,11 @@ a{
 }
 .weather-right .sunrise-sunset{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    position: center;
     height: 400px;
-    width: 450px;
-    gap: 25px;
+    width: 410px;
+    row-gap: 0px;
     padding: 0px 20px;
 }
 .weather-right .sunrise-sunset .item{
@@ -194,12 +233,16 @@ a{
         
     }
     .weather-right .sunrise-sunset h2{
-        margin-top: 15px;
-        font-size: 25px;
+        margin-top: 1px;
+        font-size: 50px;
+        position: relative;
+        transform: translateX(40px) translateY(-40px);
     }
      .weather-right .sunrise-sunset p{
-        margin-top: 15px;
-        font-size: 25px;
+        margin-top: 1px;
+        font-size: 50px;
+        position: relative;
+        transform: translateX(35px);
     }
     .weather-right .card-item{
         display: flex;
@@ -218,7 +261,7 @@ a{
         margin: 0;
     }
     .metric-card .card-item i{
-        color: #e8e8e8;
+        color: black;
     }
     .metric-card .card-item h2{
         margin: 0;
@@ -238,6 +281,10 @@ a{
         text-align: center;
         width: 50px;
     }
+    .weather-right .hourly-forecast img{
+        width: 100px;
+        height: 110px;
+    }
     #hum{
         width: 250px;
     }
@@ -253,6 +300,7 @@ a{
     }
     header input{
         font-size: 18px;
+        background-color: white;
     }
     .weather-right .hourly-forecast .card{
         width: fit-content;
@@ -261,4 +309,44 @@ a{
         font-size: 40px;
         margin-bottom: 20px;
     }
-    
+    header div{
+        display: flex;
+        justify-content: space-between;
+    }
+    header h1{
+        position: relative;
+        transform: translateX(-20px) translateY(-7px);
+        text-transform: uppercase;
+        color: black;
+    }
+    header img{
+        width: 110px;
+        height: 100px;
+        position: relative;
+        transform: translateY(-13px);
+    }
+    .icone{
+        position: absolute;
+    }
+    .icon img{
+        width: 130px;
+        height: 120px;
+        position: relative;
+        transform: translateY(-20px);
+    }
+    .sunrise-sunset hr{
+        width: 480px;
+        background-color: #141313;
+        position: relative;
+        transform: translateX(-36px) translateY(-20px);
+        opacity: 0.8;
+    }
+    .card-footer p{
+        font-size: 18px;
+    }
+    nav img{
+        position: absolute;
+        transform: translateX(-278px) translateY(11px);
+        width: 20px;
+        height: 20px;
+    }

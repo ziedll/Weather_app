@@ -60,6 +60,7 @@ function getWeatherDetails(name, lat, lon, country, state) {
         .then((res) => res.json())
         .then((data) => {
             let date = new Date();
+            const countryCode = country.toLowerCase();
             currentWeatherCard.innerHTML = `
               <div class="actual-weather">
                 <p>Now</p>
@@ -70,8 +71,8 @@ function getWeatherDetails(name, lat, lon, country, state) {
             <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="cloud"> 
             <hr>
             <div class="card-footer">
-                <p><i class = "fa-solid fa-calendar"></i>${days[date.getDay()]}, ${date.getDate()}, ${months[date.getMonth()]}, ${date.getFullYear()}</p>
-                <p><i class="fa-solid fa-location-dot"></i>${country}</p>
+                <p><i class = "fa -solid fa-calendar"></i>${days[date.getDay()]}, ${date.getDate()}, ${months[date.getMonth()]}, ${date.getFullYear()}</p>
+                <p><i class="fi fi-${countryCode}"></i>${country}</p>
                 <p><i class="fa-solid fa-location-dot"></i>${name}</p>
                 <p><i class="fa-solid fa-location-dot"></i>${state}</p>
             </div>`;
@@ -93,15 +94,16 @@ function getWeatherDetails(name, lat, lon, country, state) {
                             <div class="sunrise-sunset">
                                 <div class="item">
                                     <div class="icon">
-                                        <i class="fa-solid fa-cloud-sun-rain fa-4x"></i>
+                                        <img src="icons/sunrise.png" alt="">
                                     </div>
                                     <div> 
                                     <p>Sunrise</p>
                                 <h2>${sunriseLocal}</h2></div>
                                 </div>
+                                <hr>
                                 <div class="item">
                             <div class="icon">
-                                <i class="fa-solid fa-cloud-sun-rain fa-4x"></i>
+                                <img src="icons/sunset.png" alt="">
                             </div>
                             <div>
                                 <p>
@@ -134,7 +136,7 @@ function getWeatherDetails(name, lat, lon, country, state) {
                 hourlyForecastCard.innerHTML += `
                  <div class="card">
                     <p>${hr}:00</p>
-                    <img src="https://openweathermap.org/img/wn/${hourlyForecast[i].weather[0].icon}.png" alt="">
+                    <img src="https://openweathermap.org/img/wn/${hourlyForecast[i].weather[0].icon}@4x.png" alt="">
                     <p>${(hourlyForecast[i].main.temp -273.15).toFixed(2)}&deg;C</p>
                 </div>`
             }
